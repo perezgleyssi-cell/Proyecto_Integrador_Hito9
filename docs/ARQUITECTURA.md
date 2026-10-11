@@ -1,26 +1,22 @@
-# Arquitectura y trazabilidad
+# Arquitectura de tres capas
 
-## Dependencias
+Sistema para Reportar y Dar Seguimiento a Fallas de Equipos de Cómputo.
+Grupo CTIS25-SABE2-GP2. Hito 9: prototipo y armazón de repositorio.
 
-Presentación → Negocio → Datos → MySQL. Las respuestas recorren la ruta inversa. La vista nunca se conecta al SGBD.
+## Presentación
+src/presentation contiene las futuras vistas de acceso, tablero, formulario y consulta. Captura equipo, categoría y descripción. Valida presencia y longitud de 300 caracteres, muestra errores y envía DTO al controlador. No ejecuta SQL.
 
-## Contrato de registro propuesto
+## Negocio
+src/business contiene los futuros controladores y servicios. Comprueba usuario activo, existencia del equipo y categoría, rol MANTENIMIENTO para seguimiento y solución, estado inicial Pendiente y transición a Resuelto. Una solución por reporte. Orquesta transacciones sin depender de la vista.
 
-Solicitud: estudianteId, periodoId, asignaturaIds. El servidor obtiene carrera y situación financiera del estudiante, sin confiar en valores manipulables de la vista. Los identificadores apuntan a catálogos. Los nombres definitivos se deben alinear con el DER anterior.
+## Datos
+src/data contiene los futuros repositorios y conexión. Realiza consultas parametrizadas a las ocho tablas, aplica PK, FK y UNIQUE, y persiste solución y cambio de estado en la misma transacción. Las credenciales se cargarán desde variables de entorno excluidas de Git.
 
-El controlador traduce la solicitud en un DTO y llama al servicio. El servicio valida existencia del estudiante, período abierto, solvencia, duplicados y cupos. La capa de datos confirma el cupo dentro de una transacción con el mecanismo de concurrencia del SGBD, registra matrícula y detalles y confirma o revierte todo. Devuelve identificador y comprobante. La vista muestra un mensaje comprensible sin revelar errores SQL.
+## Flujo de registrar una falla
+Vista → DTO {equ_id, cat_id, rep_descripcion} → controlador → servicio → repositorio → MySQL. usu_id se toma de la sesión; rep_fecha y estado se asignan en servidor. La respuesta vuelve a la vista con rep_id o un error comprensible.
 
-## Reglas de módulos
+## Modelo y decisiones
+Modelo_original_clase8.pdf es el documento realmente entregado en Classroom. schema_derivado_clase8.sql es una traducción nueva del diccionario, no el DDL original. Los estados se inicializan con Pendiente=1. La autenticación deberá integrarse porque TBL_USUARIO no incluye contraseña. Las FK impiden eliminar referencias utilizadas. No se agrega prioridad: ese atributo no figura en el modelo.
 
-- presentation/: campos requeridos, correo válido y renderizado; sin SQL ni credenciales.
-- business/: autenticación delegada al proveedor seguro, autorización por rol, cupo, solvencia y orquestación; sin detalles de conexión.
-- data/: repositorios, conexiones por entorno, consultas preparadas y atomicidad.
-- tests/: pruebas de reglas y contratos, y pruebas de integración de repositorios en una base aislada.
-
-## Seguridad prevista
-
-Contraseñas con hash seguro en la implementación, HTTPS, sesión con expiración, autorización en servidor, validación de entradas y consultas parametrizadas. El prototipo no autentica usuarios reales ni almacena contraseñas.
-
-## Matriz del Hito 9
-
-Wireframes (25 puntos): cuatro pantallas, jerarquía, cuadrícula de 8 px y validaciones. Interactividad (25): conexiones clicables del flujo. Tres capas (25): separación física y responsabilidades. Git (25): remoto activo, README, .gitignore y aportes colaborativos. La existencia de carpetas locales no demuestra un remoto ni colaboración.
+## Alcance
+El prototipo simula navegación y datos. Este hito no contiene una aplicación ejecutable ni una conexión real. El siguiente hito implementará y probará los servicios.

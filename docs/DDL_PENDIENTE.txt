@@ -1,3 +1,1 @@
-Colocar aquí el script DDL original de clase 8 y el DER aprobado.
-No se ha recibido ese material. No se generó un esquema sustituto.
-Verificar atributos, claves primarias y foráneas contra el prototipo antes de entregar.
+Se recuperó Modelo_original_clase8.pdf desde la entrega de Classroom. Contiene DER, normalización y diccionario; no incluye un archivo SQL original. schema_derivado_clase8.sql traduce ese diccionario a MySQL y documenta sus decisiones. Cotejar con el DDL original si el equipo dispone de él. No se ejecutó contra una base de datos.
