@@ -1,0 +1,3 @@
+Colocar aquí el script DDL original de clase 8 y el DER aprobado.
+No se ha recibido ese material. No se generó un esquema sustituto.
+Verificar atributos, claves primarias y foráneas contra el prototipo antes de entregar.
