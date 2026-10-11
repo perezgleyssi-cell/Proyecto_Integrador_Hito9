@@ -27,7 +27,7 @@ README.md
 Este repositorio entrega el armazón solicitado para Hito 9. Los .gitkeep conservan carpetas vacías; no son código ejecutable. La implementación y conexión real corresponden al siguiente hito.
 
 ## Recorrido del prototipo
-Acceso → Tablero → Reportar una falla → Reporte registrado → Seguimiento → Registrar solución → Consultar reportes. Aplicar filtros muestra el ejemplo vacío y Limpiar filtros regresa. Los campos y datos son simulados. El formulario y la contraseña enlazan a vistas de error para demostrar validaciones; no autentican ni guardan datos reales.
+Acceso → Tablero → Reportar una falla → Reporte registrado → Seguimiento → Registrar solución → Consultar reportes. Aplicar filtros muestra el ejemplo vacío y Limpiar filtros regresa. Los campos y datos son simulados. Los marcos de error ilustran las validaciones previstas; se pueden revisar directamente en Figma. No autentican ni guardan datos reales.
 
 ## Preparación del siguiente hito
 1. Clonar este repositorio y elegir la tecnología del equipo.
